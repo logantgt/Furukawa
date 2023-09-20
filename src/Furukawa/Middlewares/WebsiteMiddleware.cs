@@ -8,7 +8,7 @@ namespace Furukawa.Middlewares;
 
 public class WebsiteMiddleware : IMiddleware
 {
-    private static readonly string WebPath = Path.Join(BunkumFileSystem.DataDirectory, "Static");
+    private static readonly string WebPath = Path.Join(BunkumFileSystem.DataDirectory, "static");
     private static readonly Dictionary<string, string> MimeMapping = new()
     {
         { ".html", "text/html" },
