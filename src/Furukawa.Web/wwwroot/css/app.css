@@ -1,6 +1,7 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-@media only screen and (min-aspect-ratio: 3/2)
+/* Responsive page width */
+@media only screen
 {
     #app
     {
@@ -10,66 +11,31 @@
     }
 }
 
+/* Global styles & fixes */
 :root {
-    --bs-dark-rgb: 24,26,27;
     --bs-primary-rgb: 133,53,148;
 }
 
-.btn
+.flex-column
 {
+    border-bottom: 1px solid #262626;
+}
+
+.btn {
     border-width: 2px;
 }
 
-.btn-primary
-{
-    --bs-btn-bg: #853594;
-    --bs-btn-border-color: #762F82;
-}
-
-button.navbar-toggler
-{
+button.navbar-toggler {
     border-width: 0px;
     background-color: transparent !important;
-}
-
-.btn-primary:hover
-{
-    --bs-btn-hover-bg: #0095AB;
-    --bs-btn-hover-border-color: #00A6BF;
-}
-
-html, body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-image: none;
-    background-color: #181A1B;
-}
-
-.h2, .h3, .h4, .h5, .h6, h2, h3, h4, h5, h6, a, p, article, tr, td {
-    color: #CDCBC9;
 }
 
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
     --bs-gutter-x: 0rem;
 }
 
-h1, .h1
-{
-    color: #898887;
-}
-
-tr
-{
-    --bs-table-bg: 24,26,27;
-}
-
-.navbar
-{
+.navbar {
     --bs-navbar-padding-y: 0rem;
-}
-
-a:hover
-{
-    color: #36E5FF;
 }
 
 h1:focus {
@@ -79,6 +45,79 @@ h1:focus {
 .content {
     padding-top: 1.1rem;
 }
+
+#app, .page
+{
+    height: 100vh;
+}
+
+html, body {
+    height: 100vh;
+    font-family: 'Noto Sans JP', sans-serif;
+    background-image: none;
+}
+
+.navbar a {
+    color: #FFF;
+}
+.navbar a:hover {
+    color: #FFF;
+}
+
+/* Dark Theme */
+
+:root {
+    --bs-dark-rgb: 24,26,27;
+}
+    
+main {
+    border-right: 1px solid #262626;
+}
+    
+.navbar {
+    box-shadow: 3px 0px 0px 0px #853594;
+}
+    
+.nav-scrollable {
+    border-left: 1px solid #262626;
+    border-right: 1px solid #262626;
+}
+    
+html, body {
+    background-color: #181a1b;
+}
+
+.btn-primary {
+    --bs-btn-bg: #853594;
+    --bs-btn-border-color: #762F82;
+}
+
+.btn-primary:hover {
+    --bs-btn-hover-bg: #0095AB;
+    --bs-btn-hover-border-color: #00A6BF;
+}
+
+.alert-primary {
+    background-color: #0095AB;
+}
+
+.h2, .h3, .h4, .h5, .h6, h2, h3, h4, h5, h6, p, article, tr, td {
+    color: #CDCBC9;
+}
+
+h1, .h1 {
+    color: #898887;
+}
+
+tr {
+    --bs-table-bg: 24,26,27;
+}
+
+a:hover {
+    color: #36E5FF;
+}  
+
+/* Blazor */
 
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;

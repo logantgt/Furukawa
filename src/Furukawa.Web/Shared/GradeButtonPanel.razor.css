@@ -1,0 +1,28 @@
+#card-grade-btn-panel > #grade-btn-row > button
+{
+    width: 100%;
+    margin: 0.25rem;
+    padding: 0.5rem;
+}
+
+#card-grade-btn-panel
+{
+    @media (min-width: 60rem)
+    {
+        padding-left: 25%;
+        padding-right: 25%;
+    }
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #0f1113;
+    border-top: 1px solid #262626;
+}
+
+#grade-btn-row {
+    display: flex;
+    width: 100%;
+}
+
+span.oi {
+    padding-right: 0.5rem;
+}
