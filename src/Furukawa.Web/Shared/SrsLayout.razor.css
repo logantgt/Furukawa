@@ -1,3 +1,6 @@
+footer > #reveal-panel { display: block; }
+footer > #grade-panel { display: none; }
+
 .page {
     position: relative;
     display: flex;
@@ -11,7 +14,8 @@ main {
 
 .content
 {
-    height: calc(100vh - 12rem);
+    margin-top: 0.5rem;
+    height: calc(100vh - 11rem);
     overflow: auto;
 }
 
