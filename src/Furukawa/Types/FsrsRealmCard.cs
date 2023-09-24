@@ -22,6 +22,8 @@ namespace Furukawa.Types
         public int State { get; set; } = 0; // (int)FsrsCardState
         public string LastReview { get; set; } // (string)DateTime
 
+        public bool Blacklisted { get; set; } = false;
+
         /// <summary>
         /// 
         /// </summary>

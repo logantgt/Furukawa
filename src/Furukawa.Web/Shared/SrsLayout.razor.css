@@ -1,4 +1,5 @@
-footer > #reveal-panel { display: block; }
+footer > #newcard-panel { display: none; }
+footer > #reveal-panel { display: none; }
 footer > #grade-panel { display: none; }
 
 .page {
