@@ -28,5 +28,21 @@ namespace Furukawa.Database
                 _realm.Add(card, true);
             });
         }
+
+        public void AddSomeCorpusNotesTest(CorpusNote note)
+        {
+            _realm.Write(() =>
+            {
+                _realm.Add(note, true);
+            });
+        }
+        
+        public void AddSomeCorpusListsTest(CorpusList list)
+        {
+            _realm.Write(() =>
+            {
+                _realm.Add(list, true);
+            });
+        }
     }   
 }

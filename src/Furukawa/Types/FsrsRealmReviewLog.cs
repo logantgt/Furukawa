@@ -6,7 +6,6 @@ namespace Furukawa.Types
 {
     public partial class FsrsRealmReviewLog : IRealmObject
     {
-        [PrimaryKey]
         public Guid Guid { get; set; }
         public int Rating { get; set; } // (int)FsrsCardRating
         public int ScheduledDays { get; set; }

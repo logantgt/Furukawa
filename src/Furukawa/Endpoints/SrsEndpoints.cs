@@ -21,7 +21,7 @@ namespace Furukawa.Endpoints
             CardContent cardContent = new CardContent
             {
                 CardGuid = newCard.Guid,
-                Document = File.ReadAllText(newCard.ContentFile)
+                Document = ""
             };
 
             return cardContent;

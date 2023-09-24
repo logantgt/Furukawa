@@ -10,8 +10,8 @@ namespace Furukawa.Types
         [PrimaryKey]
         public Guid Guid { get; set; }
         public string Owner { get; set; }
-        public IList<string> Decks { get; }
-        public string ContentFile { get; set; }
+        public string Note { get; set; } // SortField of a CorpusNote entry
+        public bool Blacklisted { get; set; } = false;
         public string Due { get; set; } // (string)DateTime
         public float Stability { get; set; }
         public float Difficulty { get; set; }
@@ -21,8 +21,6 @@ namespace Furukawa.Types
         public int Lapses { get; set; }
         public int State { get; set; } = 0; // (int)FsrsCardState
         public string LastReview { get; set; } // (string)DateTime
-
-        public bool Blacklisted { get; set; } = false;
 
         /// <summary>
         /// 
@@ -35,7 +33,8 @@ namespace Furukawa.Types
             {
                 Guid = this.Guid,
                 Owner = this.Owner,
-                ContentFile = this.ContentFile,
+                Note = this.Note,
+                Blacklisted = this.Blacklisted,
                 Due = card.Due.ToString("O"),
                 Stability = card.Stability,
                 Difficulty = card.Difficulty,
@@ -46,12 +45,7 @@ namespace Furukawa.Types
                 State = (int)card.State,
                 LastReview = card.LastReview.ToString("O")
             };
-
-            foreach (string deck in this.Decks)
-            {
-                output.Decks.Add(deck);
-            }
-
+            
             return output;
         }
 
