@@ -16,12 +16,12 @@ namespace Furukawa.Endpoints
         [Endpoint("/api/v1/srs/QueryNextDueCard", Method.Get, ContentType.Json)]
         public CardContent QueryNextDueCard(RequestContext context, FurukawaDatabaseContext database)
         {
-            // Return the UUID of the user's next card to the client along with the Card Contents for presentation
-            FsrsRealmCard newCard = database.QueryFsrsRealmCardsDue();
-            CardContent cardContent = new CardContent
+            // Send the UUID of the user's next card to the client along with the Card Contents for presentation
+            FsrsRealmCard newCard = database.QueryNextCard();
+            CardContent cardContent = new CardContent()
             {
                 CardGuid = newCard.Guid,
-                Document = ""
+                Document = File.ReadAllText(database.QueryNote(newCard.Note).Content)
             };
 
             return cardContent;

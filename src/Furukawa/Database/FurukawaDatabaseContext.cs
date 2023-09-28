@@ -6,11 +6,16 @@ namespace Furukawa.Database
 {
     public class FurukawaDatabaseContext : RealmDatabaseContext
     {
-        public FsrsRealmCard QueryFsrsRealmCardsDue()
+        public FsrsRealmCard QueryNextCard()
         {
             // TODO: properly query database for set of next due cards and return next due card (first card to become due by timestamp)
-            IQueryable<FsrsRealmCard> dueCardList = _realm.All<FsrsRealmCard>().Where(i => i.Owner == "Logan");
+            IQueryable<FsrsRealmCard> dueCardList = _realm.All<FsrsRealmCard>();
             return dueCardList.First();
+        }
+
+        public CorpusNote QueryNote(string note)
+        {
+            return _realm.Find<CorpusNote>(note + "\r");
         }
 
         public void WriteFsrsRealmReviewLog(FsrsRealmReviewLog reviewLog)

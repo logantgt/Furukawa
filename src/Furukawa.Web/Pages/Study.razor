@@ -3,16 +3,32 @@
 
 <PageTitle>Study</PageTitle>
 <style>  
-    #srs-card > #card-front { display: block; }
-    #srs-card > #card-back { display: none; }
+    .unknown-kanji { color:  var(--bs-info); }
+    #srs-card { height: 60%; }
+    #srs-card > #card-front { display: block; height: 100%; }
+    #srs-card > #card-back { display: none; height: 100%; }
 </style>
 
 <div id="srs-card">
-    <div id="card-front"></div>
-    <div id="card-back"></div>
+    <div id="card-front">
+        <i>Kanji</i>
+        <h6>Determine the Kanji used in these vocabulary;</h6>
+        <hr/>
+        <p>あく <i>(Noun - evil; wickedness)</i></p>
+        <p><ruby><span class="unknown-kanji">▧</span><rp>(</rp><rt>わる</rt><rp>)</rp>い</ruby> <i>(I-adjective - bad; poor; undesirable)</i></p>
+        <p><ruby><span class="unknown-kanji">▧</span><rp>(</rp><rt>わる</rt><rp>)</rp></ruby><ruby>口<rp>(</rp><rt>ぐち</rt><rp>)</rp></ruby> <i>(Suru verb - to slander; to insult)</i></p>
+        <hr/>
+        <DrawArea></DrawArea>
+    </div>
+    <div id="card-back" style="font-size: 192pt; text-align: center;">
+        <p>悪</p>
+    </div>
 </div>
 
 @code
 {
-    
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
 }
