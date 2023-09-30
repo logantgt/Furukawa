@@ -70,9 +70,9 @@ main {
 }
 
 hr {
+    opacity: 100%;
     height: 1px;
-    background-color: #262626;
-    border: none;
+    color: #262626;
 }
 
 .navbar {

@@ -37,9 +37,20 @@
             width: 100%;
             height: 100%;
         }
+        
+        .clearbtn {
+            position: fixed;
+            margin: 0;
+            padding: 0;
+            top: 0;
+            left: 0;
+            background-color: transparent;
+            border-color: transparent;
+        }
     </style>
 </head>
 <body onload="initDraw()">
+<button class="clearbtn" onclick="signaturePad.clear()"><img src="img/clearbtn.svg"></button>
 <canvas></canvas>
 </body>
 </html>
