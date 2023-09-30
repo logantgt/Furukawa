@@ -12,6 +12,7 @@ using Furukawa.Endpoints;
 using Furukawa.Middlewares;
 using Furukawa.Services;
 using Furukawa.Types;
+using Furukawa.Authentication;
 using Realms;
 
 // Initialize a Bunkum server
@@ -40,7 +41,11 @@ server.Initialize = () =>
     // Bunkum officially provides Bunkum.RealmDatabase to use Realm, but as of writing there are no other officially supported databases.
     // It's quite trivial to write your own Provider/Context classes, though. They're simple interfaces.
     server.UseDatabaseProvider(provider);
-
+    
+    // Add the Authentication Provider.
+    var authProvider = new SessionProvider();
+    server.AddAuthenticationService(authProvider);
+    
     // Then, we add a StorageService. This is Bunkum's abstraction for managing files, e.g. uploaded server assets like images.
     // This storage service stores files in memory, but you can change it to a FileSystemDataStore to store locally.
     // You can also extend IDataStore and create your own handler for storage, for example if you wanted to upload to S3.

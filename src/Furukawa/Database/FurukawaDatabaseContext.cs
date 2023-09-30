@@ -4,7 +4,7 @@ using Furukawa.Types;
 
 namespace Furukawa.Database
 {
-    public class FurukawaDatabaseContext : RealmDatabaseContext
+    public partial class FurukawaDatabaseContext : RealmDatabaseContext
     {
         public FsrsRealmCard QueryNextCard()
         {
@@ -48,6 +48,12 @@ namespace Furukawa.Database
             {
                 _realm.Add(list, true);
             });
+        }
+        
+        private static string GenerateGuid()
+        {
+            Guid guid = Guid.NewGuid();
+            return guid.ToString();
         }
     }   
 }
