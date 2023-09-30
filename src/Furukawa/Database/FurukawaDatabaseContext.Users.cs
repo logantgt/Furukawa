@@ -5,9 +5,9 @@ namespace Furukawa.Database
 {
     public partial class FurukawaDatabaseContext
 {
-    public GameUser CreateUser(RegistrationRequest request)
+    public SiteUser CreateUser(RegistrationRequest request)
     {
-        GameUser user = new()
+        SiteUser user = new()
         {
             Id = GenerateGuid(),
             Username = request.Username,
@@ -25,7 +25,7 @@ namespace Furukawa.Database
         return user;
     }
 
-    public void RemoveUser(GameUser user)
+    public void RemoveUser(SiteUser user)
     {
         _realm.Write(() =>
         {
@@ -34,7 +34,7 @@ namespace Furukawa.Database
         });
     }
 
-    public void SetUsername(GameUser user, string username)
+    public void SetUsername(SiteUser user, string username)
     {
         _realm.Write(() =>
         {
@@ -42,7 +42,7 @@ namespace Furukawa.Database
         });
     }
     
-    public void SetUserEmail(GameUser user, string email)
+    public void SetUserEmail(SiteUser user, string email)
     {
         _realm.Write(() =>
         {
@@ -50,7 +50,7 @@ namespace Furukawa.Database
         });
     }
     
-    public void SetUserSelectedSkin(GameUser user, int selectedSkin)
+    public void SetUserSelectedSkin(SiteUser user, int selectedSkin)
     {
         _realm.Write(() =>
         {
@@ -58,7 +58,7 @@ namespace Furukawa.Database
         });
     }
     
-    public void SetUserStatistics(GameUser user, UserStatistics statistics)
+    public void SetUserStatistics(SiteUser user, UserStatistics statistics)
     {
         _realm.Write(() =>
         {
@@ -67,7 +67,7 @@ namespace Furukawa.Database
     }
     
     private const int WorkFactor = 10;
-    public bool ValidatePassword(GameUser user, string hash)
+    public bool ValidatePassword(SiteUser user, string hash)
     {
         if (BCrypt.Net.BCrypt.PasswordNeedsRehash(user.PasswordBcrypt, WorkFactor))
         {
@@ -77,7 +77,7 @@ namespace Furukawa.Database
         return BCrypt.Net.BCrypt.Verify(hash.ToLower(), user.PasswordBcrypt); 
     }
 
-    public void SetUserPassword(GameUser user, string hash)
+    public void SetUserPassword(SiteUser user, string hash)
     {
         string passwordBcrypt = BCrypt.Net.BCrypt.HashPassword(hash.ToLower(), WorkFactor);
         
@@ -87,19 +87,19 @@ namespace Furukawa.Database
         });
     }
     
-    public GameUser? GetUserWithEmail(string email)
+    public SiteUser? GetUserWithEmail(string email)
     {
-        return _realm.All<GameUser>().FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+        return _realm.All<SiteUser>().FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
     }
     
-    public GameUser? GetUserWithId(string id)
+    public SiteUser? GetUserWithId(string id)
     {
-        return _realm.All<GameUser>().FirstOrDefault(u => u.Id == id);
+        return _realm.All<SiteUser>().FirstOrDefault(u => u.Id == id);
     }
         
-    public GameUser? GetUserWithUsername(string username)
+    public SiteUser? GetUserWithUsername(string username)
     {
-        return _realm.All<GameUser>().FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+        return _realm.All<SiteUser>().FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
     }
 }
 }

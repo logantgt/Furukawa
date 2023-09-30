@@ -89,10 +89,14 @@ namespace Furukawa.Database
 
         protected override List<Type> SchemaTypes { get; } = new()
         {
-            typeof(FsrsRealmCard),
-            typeof(FsrsRealmReviewLog),
+            typeof(SiteUser),
+            typeof(SiteSession),
+            typeof(UserStatistics),
+            typeof(FsrsCard),
+            typeof(FsrsReviewLog),
             typeof(CorpusNote),
-            typeof(CorpusList)
+            typeof(CorpusList),
+            typeof(CorpusTemplate)
         };
         protected override string Filename => "furukawa.realm";
     }   

@@ -4,7 +4,7 @@ using Realms;
 
 namespace Furukawa.Types
 {
-    public class GameSession : RealmObject, IToken
+    public class SiteSession : RealmObject, IToken
     {
         [PrimaryKey] [Required] public string Id { get; init; }
     
@@ -17,7 +17,7 @@ namespace Furukawa.Types
             get => (SessionType)_SessionType;
             set => _SessionType = (int)value;
         }
-        public GameUser User { get; init; }
+        public SiteUser User { get; init; }
         public DateTimeOffset CreationDate { get; init; }
         public DateTimeOffset ExpiryDate { get; init; }
     }

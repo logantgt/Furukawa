@@ -6,11 +6,11 @@ namespace Furukawa.Database
     {
         private const int DefaultSessionExpirySeconds = 86400; // 1 day
         private const int SessionLimit = 3; // limit of how many sessions a user can have simultaneously 
-        public GameSession CreateSession(GameUser user, SessionType type, long? expirationSeconds = null, string? id = null)
+        public SiteSession CreateSession(SiteUser user, SessionType type, long? expirationSeconds = null, string? id = null)
         {
             double sessionExpirationSeconds = expirationSeconds ?? DefaultSessionExpirySeconds;
         
-            GameSession session = new()
+            SiteSession session = new()
             {
                 Id = id ?? GenerateGuid(),
                 SessionType = type,
@@ -19,14 +19,14 @@ namespace Furukawa.Database
                 ExpiryDate = DateTimeOffset.UtcNow.AddSeconds(sessionExpirationSeconds)
             };
 
-            IEnumerable<GameSession> sessionsToDelete = _realm.All<GameSession>()
+            IEnumerable<SiteSession> sessionsToDelete = _realm.All<SiteSession>()
                 .Where(s => s.User == user && s._SessionType == (int)type)
                 .AsEnumerable()
                 .SkipLast(SessionLimit - 1);
 
             _realm.Write(() =>
             {
-                foreach (GameSession gameSession in sessionsToDelete)
+                foreach (SiteSession gameSession in sessionsToDelete)
                 {
                     _realm.Remove(gameSession);
                 }
@@ -36,16 +36,16 @@ namespace Furukawa.Database
         
             return session;
         }
-        public void RemoveSession(GameSession session)
+        public void RemoveSession(SiteSession session)
         {
             _realm.Write(() =>
             {
                 _realm.Remove(session);
             });
         }
-        public GameSession? GetSessionWithId(string id)
+        public SiteSession? GetSessionWithId(string id)
         {
-            return _realm.All<GameSession>().FirstOrDefault(s => s.Id == id);
+            return _realm.All<SiteSession>().FirstOrDefault(s => s.Id == id);
         }
     }
 }

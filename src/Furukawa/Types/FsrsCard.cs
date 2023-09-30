@@ -5,7 +5,7 @@ using Realms;
 
 namespace Furukawa.Types
 {
-    public partial class FsrsRealmCard : IRealmObject
+    public partial class FsrsCard : IRealmObject
     {
         [PrimaryKey]
         public Guid Guid { get; set; }
@@ -27,9 +27,9 @@ namespace Furukawa.Types
         /// </summary>
         /// <param name="card">The card to derive FSRS parameters from.</param>
         /// <returns>Returns a new instance of FsrsRealmCard with this FsrsRealmCard's Guid, Owner, Decks, and ContentFile using the FSRS card parameters of the given Card.</returns>
-        public FsrsRealmCard UpdateCard(Card card)
+        public FsrsCard UpdateCard(Card card)
         {
-            FsrsRealmCard output = new FsrsRealmCard
+            FsrsCard output = new FsrsCard
             {
                 Guid = this.Guid,
                 Owner = this.Owner,

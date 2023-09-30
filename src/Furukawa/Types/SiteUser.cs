@@ -3,7 +3,7 @@ using Realms;
 
 namespace Furukawa.Types
 {
-    public class GameUser : RealmObject, IRateLimitUser
+    public class SiteUser : RealmObject, IRateLimitUser
     {
         [PrimaryKey] [Required] public string Id { get; init; }
         public string Username { get; set; }
@@ -12,7 +12,7 @@ namespace Furukawa.Types
         public DateTimeOffset CreationDate { get; init; }
         public int SelectedSkin { get; set; }
         public UserStatistics Statistics { get; set; }
-        [Backlink(nameof(GameSession.User))] public IQueryable<GameSession> Sessions { get; }
+        [Backlink(nameof(SiteSession.User))] public IQueryable<SiteSession> Sessions { get; }
 
         // Defined in authentication provider. Avoids Realm threading nonsense.
         public bool RateLimitUserIdIsEqual(object obj)

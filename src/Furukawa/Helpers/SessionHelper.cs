@@ -28,7 +28,7 @@ namespace Furukawa.Helpers
             if (database.GetSessionWithId(id) == null) return id; // Return if Id has not been used before
             return GenerateSimpleSessionId(database, idCharacters, idLength); // Generate new Id if it already exists   
         }
-        public static bool IsSessionAllowedToAccessEndpoint(GameSession session, string uriPath)
+        public static bool IsSessionAllowedToAccessEndpoint(SiteSession session, string uriPath)
         {
             if (uriPath.StartsWith(ApiEndpointAttribute.BaseRoute + "account/"))
             {
