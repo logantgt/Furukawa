@@ -7,5 +7,6 @@ namespace Furukawa.Models;
 public struct CardContent
 {
     public Guid CardGuid;
-    public string Document;
+    public string Template;
+    public string Content;
 }

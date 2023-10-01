@@ -58,7 +58,6 @@ server.Initialize = () =>
     
     // Finally, let's add a service. Services can do basically anything, including adding things for dependency injection into endpoints,
     // running code before middlewares, etc.
-    server.AddService<TimeService>();
     server.AddService<FsrsService>();
 };
 

@@ -21,7 +21,7 @@ namespace Furukawa.Endpoints
             CardContent cardContent = new CardContent()
             {
                 CardGuid = newCard.Guid,
-                Document = File.ReadAllText(database.QueryNote(newCard.Note).Content)
+                Content = File.ReadAllText(database.QueryNote(newCard.Note).Content)
             };
 
             return cardContent;

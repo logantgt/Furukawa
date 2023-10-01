@@ -10,14 +10,12 @@ using NotEnoughLogs;
 namespace Furukawa.Services;
 
 /// <summary>
-/// A service that provides time to endpoints.
+/// A service that provides an instance of the Fsrs algorithm to endpoints.
 /// </summary>
 public class FsrsService : Service
 {
     private FsrsAlgorithm _fsrs = new FsrsAlgorithm();
     
-    // This constructor takes in the same dependencies an Endpoint can, so for example you could include ExampleConfiguration
-    // as a parameter and it would be passed in. The only requirement is the logger, similar to how Endpoints require a RequestContext.
     internal FsrsService(LoggerContainer<BunkumContext> logger) : base(logger) { }
     
     public override object? AddParameterToEndpoint(ListenerContext context, ParameterInfo paramInfo, Lazy<IDatabaseContext> database)
