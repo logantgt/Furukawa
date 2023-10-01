@@ -1,13 +1,14 @@
-﻿using Bunkum.CustomHttpListener.Request;
-using Bunkum.HttpServer.Authentication;
-using Bunkum.HttpServer.Database;
+﻿using Bunkum.Protocols.Http.Direct;
+using Bunkum.Core.Authentication;
+using Bunkum.Core.Database;
+using Bunkum.Listener.Request;
 using Furukawa.Database;
 using Furukawa.Types;
 using static Furukawa.Helpers.SessionHelper;
 
 namespace Furukawa.Authentication
 {
-    public class SessionProvider : IAuthenticationProvider<SiteUser, SiteSession>
+    public class SessionProvider : IAuthenticationProvider<SiteSession>
     {
         public SiteUser? AuthenticateUser(ListenerContext request, Lazy<IDatabaseContext> db)
         {

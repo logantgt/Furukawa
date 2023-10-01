@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using Bunkum.CustomHttpListener.Request;
-using Bunkum.HttpServer;
-using Bunkum.HttpServer.Database;
-using Bunkum.HttpServer.Endpoints.Middlewares;
+using Bunkum.Core;
+using Bunkum.Core.Database;
+using Bunkum.Core.Endpoints.Middlewares;
+using Bunkum.Listener.Request;
 
 namespace Furukawa.Middlewares
 {

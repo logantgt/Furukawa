@@ -1,8 +1,9 @@
 ﻿using System.Net;
 using System.Runtime.CompilerServices;
-using Bunkum.CustomHttpListener.Parsing;
-using Bunkum.HttpServer;
-using Bunkum.HttpServer.Endpoints;
+using Bunkum.Core;
+using Bunkum.Core.Endpoints;
+using Bunkum.Listener.Protocol;
+using Bunkum.Protocols.Http;
 using Furukawa.Database;
 using Furukawa.Models;
 using Furukawa.Services;
@@ -13,7 +14,7 @@ namespace Furukawa.Endpoints
 {
     public class SrsEndpoints : EndpointGroup
     {
-        [Endpoint("/api/v1/srs/QueryNextDueCard", Method.Get, ContentType.Json)]
+        [HttpEndpoint("/api/v1/srs/QueryNextDueCard", HttpMethods.Get, ContentType.Json)]
         public CardContent QueryNextDueCard(RequestContext context, FurukawaDatabaseContext database)
         {
             // Send the UUID of the user's next card to the client along with the Card Contents for presentation
@@ -27,7 +28,7 @@ namespace Furukawa.Endpoints
             return cardContent;
         }
         
-        [Endpoint("/api/v1/srs/GradeCard", Method.Post)]
+        [HttpEndpoint("/api/v1/srs/GradeCard", HttpMethods.Post)]
         public HttpStatusCode GradeCard(RequestContext context, FurukawaDatabaseContext database, FsrsAlgorithm fsrs, string body)
         {
             // Accept card UUID and grade, update card in database and publish review log

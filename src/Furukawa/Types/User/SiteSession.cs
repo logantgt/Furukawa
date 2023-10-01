@@ -1,10 +1,10 @@
-﻿using Bunkum.HttpServer.Authentication;
+﻿using Bunkum.Core.Authentication;
 using Realms;
 #pragma warning disable CS8618
 
 namespace Furukawa.Types
 {
-    public class SiteSession : RealmObject, IToken
+    public class SiteSession : RealmObject, IToken<SiteUser>
     {
         [PrimaryKey] [Required] public string Id { get; init; }
     
