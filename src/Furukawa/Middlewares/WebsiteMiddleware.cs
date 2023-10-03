@@ -29,7 +29,15 @@ namespace Furukawa.Middlewares
 
             if (uri.StartsWith("/static"))
             {
-                uri = context.Uri.AbsolutePath;
+                if ((context.RequestHeaders["Accept"] ?? "").Contains("text/html"))
+                {
+                    // Grab index.html from static if that's what the browser is looking for
+                    uri = context.Uri.AbsolutePath + "/index.html";
+                }
+                else
+                {
+                    uri = context.Uri.AbsolutePath;
+                }
             }
             else if (uri == "/" || (context.RequestHeaders["Accept"] ?? "").Contains("text/html"))
             {
