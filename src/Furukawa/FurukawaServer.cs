@@ -25,7 +25,7 @@ namespace Furukawa
         {
             databaseProvider ??= new FurukawaDatabaseProvider();
             dataStore ??= new FileSystemDataStore();
-            authProvider ??= new SessionProvider();
+            //authProvider ??= new SessionProvider();
             
             DatabaseProvider = databaseProvider;
     

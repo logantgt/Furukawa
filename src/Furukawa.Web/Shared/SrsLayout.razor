@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject HttpClient Http
 
 <div class="page">
     <div class="sidebar">
@@ -14,15 +15,33 @@
             @Body
         </article>
         <footer>
-            <div id="newcard-panel">
-                <NewCardButtonPanel></NewCardButtonPanel>
-            </div>
             <div id="reveal-panel">
                 <RevealButtonPanel></RevealButtonPanel>
             </div>
+            <div id="newcard-panel">
+                <NewCardButtonPanel CardGuid=@cardGuid></NewCardButtonPanel>
+            </div>
             <div id="grade-panel">
-                <GradeButtonPanel></GradeButtonPanel>
+                <GradeButtonPanel CardGuid=@cardGuid></GradeButtonPanel>
             </div>
         </footer>
     </main>
 </div>
+
+@code
+{
+    private CardData[]? card;
+    private string cardGuid = "";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        card = await Http.GetFromJsonAsync<CardData[]>("api/v1/srs/QueryNextDueCard");
+    }
+    
+    public class CardData
+    {
+        public string Guid { get; set; }
+        public string Template { get; set; }
+        public string Content { get; set; }
+    }
+}

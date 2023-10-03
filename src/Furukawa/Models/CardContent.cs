@@ -6,7 +6,7 @@ namespace Furukawa.Models
     [JsonObject]
     public struct CardContent
     {
-        public Guid CardGuid;
+        public string Guid;
         public string Template;
         public string Content;
     }

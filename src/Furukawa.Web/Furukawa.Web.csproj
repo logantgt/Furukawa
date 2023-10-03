@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\draw\strokes\" />
+      <_ContentIncludedByDefault Remove="wwwroot\draw\index.html" />
     </ItemGroup>
 
 </Project>

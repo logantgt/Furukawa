@@ -8,7 +8,7 @@ namespace Furukawa.Middlewares
 {
     public class WebsiteMiddleware : IMiddleware
     {
-        private static readonly string WebPath = Path.Join(BunkumFileSystem.DataDirectory, "static");
+        private static readonly string WebPath = Path.Join(BunkumFileSystem.DataDirectory, "wwwroot");
         private static readonly Dictionary<string, string> MimeMapping = new()
         {
             { ".html", "text/html" },
@@ -25,11 +25,17 @@ namespace Furukawa.Middlewares
 
             string uri = context.Uri.AbsolutePath;
 
-            if (uri.StartsWith("/lbp") || uri.StartsWith("/api") || uri == "/autodiscover" || uri == "/_health" || uri.StartsWith("/gameAssets")) return false;
+            if (uri.StartsWith("/api")) return false;
 
-            if (uri == "/" || (context.RequestHeaders["Accept"] ?? "").Contains("text/html"))
+            if (uri.StartsWith("/static"))
+            {
+                uri = context.Uri.AbsolutePath;
+            }
+            else if (uri == "/" || (context.RequestHeaders["Accept"] ?? "").Contains("text/html"))
+            {
                 uri = "/index.html";
-
+            }
+            
             string path = Path.GetFullPath(Path.Join(WebPath, uri));
             if (!path.StartsWith(WebPath)) return false; // check if path is within WebPath, prevents path traversal
         

@@ -18,11 +18,15 @@ namespace Furukawa.Endpoints
         public CardContent QueryNextDueCard(RequestContext context, FurukawaDatabaseContext database)
         {
             // Send the UUID of the user's next card to the client along with the Card Contents for presentation
-            FsrsCard newCard = database.QueryNextCard();
+            //FsrsCard newCard = database.QueryNextCard();
             CardContent cardContent = new CardContent()
             {
-                CardGuid = newCard.Guid,
-                Content = File.ReadAllText(database.QueryNote(newCard.Note).Content)
+                //Guid = newCard.Guid,
+                //Content = File.ReadAllText(database.QueryNote(newCard.Note).Content),
+                //Template = "<p>yeah Bitch</p>"
+                Guid = Guid.NewGuid().ToString(),
+                Content = "yas bros so contentufl",
+                Template = "<p>yeah Bitch</p>"
             };
 
             return cardContent;
