@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Bunkum.Core.Authentication;
 using Bunkum.Core.RateLimit;
+using Bunkum.Core.Storage;
 using Bunkum.Protocols.Http;
 using Furukawa.Authentication;
 using Furukawa.Configuration;
@@ -15,16 +16,21 @@ namespace Furukawa
     {
         protected readonly BunkumHttpServer ServerInstance;
         protected readonly FurukawaDatabaseProvider DatabaseProvider;
+        protected readonly IDataStore DataStore;
     
         public FurukawaServer(BunkumHttpListener? listener = null,
             FurukawaDatabaseProvider? databaseProvider = null,
-            IAuthenticationProvider<SiteSession>? authProvider = null)
+            IAuthenticationProvider<SiteSession>? authProvider = null,
+            IDataStore? dataStore = null)
         {
             databaseProvider ??= new FurukawaDatabaseProvider();
+            dataStore ??= new FileSystemDataStore();
             authProvider ??= new SessionProvider();
-    
+            
             DatabaseProvider = databaseProvider;
     
+            DataStore = dataStore;
+            
             ServerInstance = listener == null ? new BunkumHttpServer() : new BunkumHttpServer(listener);
             
             ServerInstance.UseDatabaseProvider(databaseProvider);
