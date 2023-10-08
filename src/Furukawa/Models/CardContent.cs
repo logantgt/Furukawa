@@ -1,13 +1,12 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Furukawa.Models
+namespace Furukawa.Models;
+
+[JsonObject]
+public struct CardContent
 {
-    [JsonObject]
-    public struct CardContent
-    {
-        public string Guid;
-        public string Template;
-        public string Content;
-    }
+    public string Guid;
+    public string Template;
+    public string Content;
 }

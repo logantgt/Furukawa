@@ -4,67 +4,66 @@ using Bunkum.Core.Database;
 using Bunkum.Core.Endpoints.Middlewares;
 using Bunkum.Listener.Request;
 
-namespace Furukawa.Middlewares
+namespace Furukawa.Middlewares;
+
+public class WebsiteMiddleware : IMiddleware
 {
-    public class WebsiteMiddleware : IMiddleware
+    private static readonly string WebPath = Path.Join(BunkumFileSystem.DataDirectory, "wwwroot");
+    private static readonly Dictionary<string, string> MimeMapping = new()
     {
-        private static readonly string WebPath = Path.Join(BunkumFileSystem.DataDirectory, "wwwroot");
-        private static readonly Dictionary<string, string> MimeMapping = new()
+        { ".html", "text/html" },
+        { ".css", "text/css" },
+        { ".js", "application/javascript" },
+        { ".svg", "image/svg+xml" },
+        { ".ico", "image/vnd.microsoft.icon" },
+    };
+
+    private static bool HandleWebsiteRequest(ListenerContext context)
+    {
+        if (!Directory.Exists(WebPath)) // If website is not included in this build
+            return false;
+
+        string uri = context.Uri.AbsolutePath;
+
+        if (uri.StartsWith("/api")) return false;
+
+        if (uri.StartsWith("/static"))
         {
-            { ".html", "text/html" },
-            { ".css", "text/css" },
-            { ".js", "application/javascript" },
-            { ".svg", "image/svg+xml" },
-            { ".ico", "image/vnd.microsoft.icon" },
-        };
-
-        private static bool HandleWebsiteRequest(ListenerContext context)
+            if ((context.RequestHeaders["Accept"] ?? "").Contains("text/html"))
+            {
+                // Grab index.html from static if that's what the browser is looking for
+                uri = context.Uri.AbsolutePath + "/index.html";
+            }
+            else
+            {
+                uri = context.Uri.AbsolutePath;
+            }
+        }
+        else if (uri == "/" || (context.RequestHeaders["Accept"] ?? "").Contains("text/html"))
         {
-            if (!Directory.Exists(WebPath)) // If website is not included in this build
-                return false;
-
-            string uri = context.Uri.AbsolutePath;
-
-            if (uri.StartsWith("/api")) return false;
-
-            if (uri.StartsWith("/static"))
-            {
-                if ((context.RequestHeaders["Accept"] ?? "").Contains("text/html"))
-                {
-                    // Grab index.html from static if that's what the browser is looking for
-                    uri = context.Uri.AbsolutePath + "/index.html";
-                }
-                else
-                {
-                    uri = context.Uri.AbsolutePath;
-                }
-            }
-            else if (uri == "/" || (context.RequestHeaders["Accept"] ?? "").Contains("text/html"))
-            {
-                uri = "/index.html";
-            }
+            uri = "/index.html";
+        }
             
-            string path = Path.GetFullPath(Path.Join(WebPath, uri));
-            if (!path.StartsWith(WebPath)) return false; // check if path is within WebPath, prevents path traversal
+        string path = Path.GetFullPath(Path.Join(WebPath, uri));
+        if (!path.StartsWith(WebPath)) return false; // check if path is within WebPath, prevents path traversal
         
-            if (!File.Exists(path)) return false;
+        if (!File.Exists(path)) return false;
 
-            string ext = Path.GetExtension(uri);
-            string mime = MimeMapping.GetValueOrDefault(ext, "application/octet-stream");
+        string ext = Path.GetExtension(uri);
+        string mime = MimeMapping.GetValueOrDefault(ext, "application/octet-stream");
         
-            context.ResponseStream.Position = 0;
-            context.ResponseCode = HttpStatusCode.OK;
-            context.ResponseHeaders["Content-Type"] = mime;
-            context.ResponseHeaders["Cache-Control"] = "max-age=43200";
+        context.ResponseStream.Position = 0;
+        context.ResponseCode = HttpStatusCode.OK;
+        context.ResponseHeaders["Content-Type"] = mime;
+        context.ResponseHeaders["Cache-Control"] = "max-age=43200";
         
-            context.Write(File.ReadAllBytes(path));
-            context.FlushResponseAndClose();
-            return true;
-        }
+        context.Write(File.ReadAllBytes(path));
+        context.FlushResponseAndClose();
+        return true;
+    }
     
-        public void HandleRequest(ListenerContext context, Lazy<IDatabaseContext> database, Action next)
-        {
-            if (!HandleWebsiteRequest(context)) next();
-        }
+    public void HandleRequest(ListenerContext context, Lazy<IDatabaseContext> database, Action next)
+    {
+        if (!HandleWebsiteRequest(context)) next();
     }
 }

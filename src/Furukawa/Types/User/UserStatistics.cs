@@ -1,9 +1,8 @@
 ﻿using Realms;
 
-namespace Furukawa.Types
+namespace Furukawa.Types;
+
+public class UserStatistics : EmbeddedObject
 {
-    public class UserStatistics : EmbeddedObject
-    {
-        public int Streak { get; set; }
-    }
+    public int Streak { get; set; }
 }

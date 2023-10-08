@@ -1,7 +1,6 @@
-﻿namespace Furukawa.Requests.Account
+﻿namespace Furukawa.Requests.Account;
+
+public class NewPasswordSessionRequest
 {
-    public class NewPasswordSessionRequest
-    {
-        public string Email { get; set; }
-    }
+    public string Email { get; set; }
 }

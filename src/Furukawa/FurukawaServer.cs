@@ -10,68 +10,67 @@ using Furukawa.Middlewares;
 using Furukawa.Services;
 using Furukawa.Types;
 
-namespace Furukawa
+namespace Furukawa;
+
+public class FurukawaServer
 {
-    public class FurukawaServer
+    protected readonly BunkumHttpServer ServerInstance;
+    protected readonly FurukawaDatabaseProvider DatabaseProvider;
+    protected readonly IDataStore DataStore;
+    
+    public FurukawaServer(BunkumHttpListener? listener = null,
+        FurukawaDatabaseProvider? databaseProvider = null,
+        IAuthenticationProvider<SiteSession>? authProvider = null,
+        IDataStore? dataStore = null)
     {
-        protected readonly BunkumHttpServer ServerInstance;
-        protected readonly FurukawaDatabaseProvider DatabaseProvider;
-        protected readonly IDataStore DataStore;
-    
-        public FurukawaServer(BunkumHttpListener? listener = null,
-            FurukawaDatabaseProvider? databaseProvider = null,
-            IAuthenticationProvider<SiteSession>? authProvider = null,
-            IDataStore? dataStore = null)
-        {
-            databaseProvider ??= new FurukawaDatabaseProvider();
-            dataStore ??= new FileSystemDataStore();
-            //authProvider ??= new SessionProvider();
+        databaseProvider ??= new FurukawaDatabaseProvider();
+        dataStore ??= new FileSystemDataStore();
+        //authProvider ??= new SessionProvider();
             
-            DatabaseProvider = databaseProvider;
+        DatabaseProvider = databaseProvider;
     
-            DataStore = dataStore;
+        DataStore = dataStore;
             
-            ServerInstance = listener == null ? new BunkumHttpServer() : new BunkumHttpServer(listener);
+        ServerInstance = listener == null ? new BunkumHttpServer() : new BunkumHttpServer(listener);
             
-            ServerInstance.UseDatabaseProvider(databaseProvider);
-            ServerInstance.AddAuthenticationService(authProvider, true);
+        ServerInstance.UseDatabaseProvider(databaseProvider);
+        ServerInstance.AddAuthenticationService(authProvider, true);
     
-            ServerInstance.DiscoverEndpointsFromAssembly(Assembly.GetExecutingAssembly());
-        }
+        ServerInstance.DiscoverEndpointsFromAssembly(Assembly.GetExecutingAssembly());
+    }
         
-        public Task StartAndBlockAsync()
-        {
-            return ServerInstance.StartAndBlockAsync();
-        }
+    public Task StartAndBlockAsync()
+    {
+        return ServerInstance.StartAndBlockAsync();
+    }
         
-        public void Start()
-        {
-            ServerInstance.Start();
-        }
+    public void Start()
+    {
+        ServerInstance.Start();
+    }
     
-        public void Initialize()
-        {
-            DatabaseProvider.Initialize();
+    public void Initialize()
+    {
+        DatabaseProvider.Initialize();
             
-            SetUpConfiguration();
-            SetUpServices();
-            SetUpMiddlewares();
-        }
+        SetUpConfiguration();
+        SetUpServices();
+        SetUpMiddlewares();
+    }
     
-        protected virtual void SetUpConfiguration()
-        {
-            ServerInstance.UseJsonConfig<ExampleConfiguration>("gameServer.json");
-        }
+    protected virtual void SetUpConfiguration()
+    {
+        ServerInstance.UseJsonConfig<ExampleConfiguration>("gameServer.json");
+    }
         
-        protected virtual void SetUpServices()
-        {
-            ServerInstance.AddRateLimitService(new RateLimitSettings(30, 40, 0, "global"));
-            ServerInstance.AddService<FsrsService>();
-        }
+    protected virtual void SetUpServices()
+    {
+        ServerInstance.AddRateLimitService(new RateLimitSettings(30, 40, 0, "global"));
+        ServerInstance.AddService<FsrsService>();
+    }
     
-        protected virtual void SetUpMiddlewares()
-        {
-            ServerInstance.AddMiddleware<WebsiteMiddleware>();
-        }
+    protected virtual void SetUpMiddlewares()
+    {
+        ServerInstance.AddMiddleware<WebsiteMiddleware>();
     }
 }

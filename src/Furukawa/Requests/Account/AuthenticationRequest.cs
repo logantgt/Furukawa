@@ -1,8 +1,7 @@
-﻿namespace Furukawa.Requests.Account
+﻿namespace Furukawa.Requests.Account;
+
+public class AuthenticationRequest
 {
-    public class AuthenticationRequest
-    {
-        public string Email { get; set; }
-        public string PasswordSha512 { get; set; }
-    }
+    public string Email { get; set; }
+    public string PasswordSha512 { get; set; }
 }

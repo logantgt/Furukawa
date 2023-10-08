@@ -1,10 +1,9 @@
-﻿namespace Furukawa.Types
+﻿namespace Furukawa.Types;
+
+public enum SessionType
 {
-    public enum SessionType
-    {
-        Api,
-        RemoveAccount,
-        SetPassword,
-        SetEmail
-    }
+    Api,
+    RemoveAccount,
+    SetPassword,
+    SetEmail
 }

@@ -1,9 +1,9 @@
 ﻿using Furukawa.Requests.Account;
 using Furukawa.Types;
 
-namespace Furukawa.Database
-{
-    public partial class FurukawaDatabaseContext
+namespace Furukawa.Database;
+
+public partial class FurukawaDatabaseContext
 {
     public SiteUser CreateUser(RegistrationRequest request)
     {
@@ -101,5 +101,4 @@ namespace Furukawa.Database
     {
         return _realm.All<SiteUser>().FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
     }
-}
 }

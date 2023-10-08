@@ -2,58 +2,57 @@
 using Bunkum.RealmDatabase;
 using Furukawa.Types;
 
-namespace Furukawa.Database
+namespace Furukawa.Database;
+
+public partial class FurukawaDatabaseContext : RealmDatabaseContext
 {
-    public partial class FurukawaDatabaseContext : RealmDatabaseContext
+    public FsrsCard QueryNextCard()
     {
-        public FsrsCard QueryNextCard()
-        {
-            // TODO: properly query database for set of next due cards and return next due card (first card to become due by timestamp)
-            IQueryable<FsrsCard> dueCardList = _realm.All<FsrsCard>();
-            return dueCardList.First();
-        }
+        // TODO: properly query database for set of next due cards and return next due card (first card to become due by timestamp)
+        IQueryable<FsrsCard> dueCardList = _realm.All<FsrsCard>();
+        return dueCardList.First();
+    }
 
-        public CorpusNote QueryNote(string note)
-        {
-            return _realm.Find<CorpusNote>(note + "\r");
-        }
+    public CorpusNote QueryNote(string note)
+    {
+        return _realm.Find<CorpusNote>(note + "\r");
+    }
 
-        public void WriteFsrsRealmReviewLog(FsrsReviewLog reviewLog)
+    public void WriteFsrsRealmReviewLog(FsrsReviewLog reviewLog)
+    {
+        _realm.Write(() =>
         {
-            _realm.Write(() =>
-            {
-                _realm.Add(reviewLog);
-            });
-        }
+            _realm.Add(reviewLog);
+        });
+    }
         
-        public void WriteFsrsRealmCard(FsrsCard card)
+    public void WriteFsrsRealmCard(FsrsCard card)
+    {
+        _realm.Write(() =>
         {
-            _realm.Write(() =>
-            {
-                _realm.Add(card, true);
-            });
-        }
+            _realm.Add(card, true);
+        });
+    }
 
-        public void AddSomeCorpusNotesTest(CorpusNote note)
+    public void AddSomeCorpusNotesTest(CorpusNote note)
+    {
+        _realm.Write(() =>
         {
-            _realm.Write(() =>
-            {
-                _realm.Add(note, true);
-            });
-        }
+            _realm.Add(note, true);
+        });
+    }
         
-        public void AddSomeCorpusListsTest(CorpusStats list)
+    public void AddSomeCorpusListsTest(CorpusStat list)
+    {
+        _realm.Write(() =>
         {
-            _realm.Write(() =>
-            {
-                _realm.Add(list, true);
-            });
-        }
+            _realm.Add(list, true);
+        });
+    }
         
-        private static string GenerateGuid()
-        {
-            Guid guid = Guid.NewGuid();
-            return guid.ToString();
-        }
-    }   
+    private static string GenerateGuid()
+    {
+        Guid guid = Guid.NewGuid();
+        return guid.ToString();
+    }
 }

@@ -1,7 +1,6 @@
-﻿namespace Furukawa.Requests.Account
+﻿namespace Furukawa.Requests.Account;
+
+public class NewEmailRequest
 {
-    public class NewEmailRequest
-    {
-        public string NewEmail { get; set; }
-    }
+    public string NewEmail { get; set; }
 }
