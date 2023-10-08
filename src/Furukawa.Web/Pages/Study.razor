@@ -3,27 +3,13 @@
 
 <PageTitle>Study</PageTitle>
 <style>  
-    .unknown-kanji { color:  var(--bs-info); }
-    #srs-card { height: 60%; }
+    #srs-card { height: 100%; overflow: hidden; }
     #srs-card > #card-front { display: block; height: 100%; }
     #srs-card > #card-back { display: none; height: 100%; }
 </style>
 
 <div id="srs-card">
-    <div id="card-front">
-        <i>Kanji</i>
-        <h6>Determine the Kanji used in these vocabulary;</h6>
-        <hr/>
-        <p><ruby><span class="unknown-kanji">▧</span><rp>(</rp><rt>あく</rt><rp>)</rp></ruby> <i>(Noun - evil; wickedness)</i></p>
-        <p><ruby><span class="unknown-kanji">▧</span><rp>(</rp><rt>わる</rt><rp>)</rp>い</ruby> <i>(I-adjective - bad; poor; undesirable)</i></p>
-        <p><ruby><span class="unknown-kanji">▧</span><rp>(</rp><rt>わる</rt><rp>)</rp></ruby><ruby>口<rp>(</rp><rt>ぐち</rt><rp>)</rp></ruby> <i>(Suru verb - to slander; to insult)</i></p>
-        <hr/>
-        <DrawArea></DrawArea>
-    </div>
-    <div id="card-back">
-        <p style="font-size: 192pt; text-align: center;">悪</p>
-        <hr/>
-    </div>
+
 </div>
 
 @code

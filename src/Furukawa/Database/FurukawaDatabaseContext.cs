@@ -42,7 +42,7 @@ namespace Furukawa.Database
             });
         }
         
-        public void AddSomeCorpusListsTest(CorpusList list)
+        public void AddSomeCorpusListsTest(CorpusStats list)
         {
             _realm.Write(() =>
             {

@@ -22,6 +22,7 @@ namespace Furukawa.Database
                 Console.WriteLine("Found new notes! Merging...");
                 foreach (string notePath in newNotesToMerge)
                 {
+                    /*
                     string card = File.ReadAllText(notePath);
         
                     string sortField = card.Split("sortfield=")[1].Split("\n")[0];
@@ -41,6 +42,7 @@ namespace Furukawa.Database
                     Console.WriteLine($"Added " + $"content/{Path.GetFileNameWithoutExtension(notePath)}.html");
                     
                     File.Delete(notePath);
+                    */
                 }
             }
             
@@ -64,7 +66,7 @@ namespace Furukawa.Database
                         int order = int.Parse(card.Split("order=")[1].Split("\n")[0]);
                         int occurances = int.Parse(card.Split("occurances=")[1].Split("\n")[0]);
                         
-                        CorpusList newList = new CorpusList
+                        CorpusStats newList = new CorpusStats
                         {
                             Deck = sourceDeck,
                             SortField = sortField,
@@ -95,7 +97,7 @@ namespace Furukawa.Database
             typeof(FsrsCard),
             typeof(FsrsReviewLog),
             typeof(CorpusNote),
-            typeof(CorpusList),
+            typeof(CorpusStats),
             typeof(CorpusTemplate)
         };
         protected override string Filename => "furukawa.realm";

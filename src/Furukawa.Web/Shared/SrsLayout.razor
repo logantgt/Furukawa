@@ -30,12 +30,12 @@
 
 @code
 {
-    private CardData[]? card;
+    private CardData? card;
     private string cardGuid = "";
     
     protected override async Task OnInitializedAsync()
     {
-        card = await Http.GetFromJsonAsync<CardData[]>("api/v1/srs/QueryNextDueCard");
+        card = await Http.GetFromJsonAsync<CardData>("api/v1/srs/QueryNextDueCard");
     }
     
     public class CardData

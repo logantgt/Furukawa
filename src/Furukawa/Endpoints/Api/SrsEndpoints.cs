@@ -10,11 +10,11 @@ using Furukawa.Services;
 using FSRSharp;
 using Furukawa.Types;
 
-namespace Furukawa.Endpoints
+namespace Furukawa.Endpoints.Api
 {
     public class SrsEndpoints : EndpointGroup
     {
-        [HttpEndpoint("/api/v1/srs/QueryNextDueCard", HttpMethods.Get, ContentType.Json)]
+        [ApiEndpoint("srs/QueryNextDueCard", HttpMethods.Get)]
         public CardContent QueryNextDueCard(RequestContext context, FurukawaDatabaseContext database)
         {
             // Send the UUID of the user's next card to the client along with the Card Contents for presentation
@@ -32,7 +32,8 @@ namespace Furukawa.Endpoints
             return cardContent;
         }
         
-        [HttpEndpoint("/api/v1/srs/GradeCard", HttpMethods.Post)]
+        
+        [ApiEndpoint("srs/GradeCard", HttpMethods.Post)]
         public HttpStatusCode GradeCard(RequestContext context, FurukawaDatabaseContext database, FsrsAlgorithm fsrs, string body)
         {
             // Accept card UUID and grade, update card in database and publish review log
