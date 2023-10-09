@@ -4,9 +4,8 @@ using Newtonsoft.Json;
 namespace Furukawa.Models;
 
 [JsonObject]
-public struct CardContent
+public struct RenderedCard
 {
     public string Guid;
-    public string Template;
     public string Content;
 }

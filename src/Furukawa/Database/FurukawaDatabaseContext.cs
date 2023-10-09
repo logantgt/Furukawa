@@ -49,7 +49,12 @@ public partial class FurukawaDatabaseContext : RealmDatabaseContext
             _realm.Add(list, true);
         });
     }
-        
+
+    public string ReadCorpusTemplate(string key)
+    {
+        return _realm.Find<CorpusTemplate>(key).Content;
+    }
+
     private static string GenerateGuid()
     {
         Guid guid = Guid.NewGuid();

@@ -2,12 +2,13 @@
 using Bunkum.Core.Database;
 using Bunkum.Core.Endpoints.Middlewares;
 using Bunkum.Listener.Request;
+using Furukawa.Types;
 
 namespace Furukawa.Middlewares;
 
 public class MediaMiddleware : IMiddleware
 {
-    private static bool HandleMediaRequest(ListenerContext context)
+    private static bool HandleMediaRequest(ListenerContext context, Lazy<IDatabaseContext> database)
     {
         if (!context.Uri.AbsolutePath.StartsWith("/media")) return false;
         
@@ -21,7 +22,7 @@ public class MediaMiddleware : IMiddleware
             context.Write("404 Not Found");
             return true;
         }
-        
+
         context.ResponseStream.Position = 0;
         context.ResponseCode = HttpStatusCode.OK;
         context.ResponseHeaders["Cache-Control"] = "max-age=43200";
@@ -31,6 +32,6 @@ public class MediaMiddleware : IMiddleware
 
     public void HandleRequest(ListenerContext context, Lazy<IDatabaseContext> database, Action next)
     {
-        if (!HandleMediaRequest(context)) next();
+        if (!HandleMediaRequest(context, database)) next();
     }
 }

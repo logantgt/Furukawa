@@ -31,8 +31,6 @@ public class FurukawaServer
     
         DataStore = dataStore;
 
-        dataStore.WriteToStore("l", File.ReadAllBytes("0"));
-        
         ServerInstance = listener == null ? new BunkumHttpServer() : new BunkumHttpServer(listener);
             
         ServerInstance.UseDatabaseProvider(databaseProvider);

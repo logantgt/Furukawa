@@ -5,10 +5,13 @@ namespace Furukawa.Types;
 
 public partial class CorpusNote : IRealmObject
 {
-    public CorpusNote(string sortField, string content, string template, string[] dependencies)
+    public CorpusNote(string sortField, Dictionary<string, string> content, string template, string[] dependencies)
     {
         SortField = sortField;
-        Content = content;
+        foreach (KeyValuePair<string, string> entry in content)
+        {
+            Content.Add(entry);
+        }
         Template = template;
         foreach (string dep in dependencies)
         {
@@ -18,7 +21,7 @@ public partial class CorpusNote : IRealmObject
 
     [PrimaryKey]
     public string SortField { get; set; } // The "answer" of the card, just as in Anki
-    public string Content { get; set; } // Plaintext path to a file which has the contents of the note
+    public IDictionary<string, string> Content { get; } // Dictionary which holds the values of the card
     public string Template { get; set; } // Name of the template
     public IList<string> Dependencies { get; } // List of strings which are SortFields of other notes that must be in a Review state before seeing this note
     
