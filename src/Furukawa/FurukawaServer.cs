@@ -16,7 +16,7 @@ public class FurukawaServer
 {
     protected readonly BunkumHttpServer ServerInstance;
     protected readonly FurukawaDatabaseProvider DatabaseProvider;
-    protected readonly IDataStore DataStore;
+    public static IDataStore DataStore;
     
     public FurukawaServer(BunkumHttpListener? listener = null,
         FurukawaDatabaseProvider? databaseProvider = null,
@@ -30,7 +30,9 @@ public class FurukawaServer
         DatabaseProvider = databaseProvider;
     
         DataStore = dataStore;
-            
+
+        dataStore.WriteToStore("l", File.ReadAllBytes("0"));
+        
         ServerInstance = listener == null ? new BunkumHttpServer() : new BunkumHttpServer(listener);
             
         ServerInstance.UseDatabaseProvider(databaseProvider);
@@ -38,12 +40,7 @@ public class FurukawaServer
     
         ServerInstance.DiscoverEndpointsFromAssembly(Assembly.GetExecutingAssembly());
     }
-        
-    public Task StartAndBlockAsync()
-    {
-        return ServerInstance.StartAndBlockAsync();
-    }
-        
+    
     public void Start()
     {
         ServerInstance.Start();
@@ -72,5 +69,6 @@ public class FurukawaServer
     protected virtual void SetUpMiddlewares()
     {
         ServerInstance.AddMiddleware<WebsiteMiddleware>();
+        ServerInstance.AddMiddleware<MediaMiddleware>();
     }
 }

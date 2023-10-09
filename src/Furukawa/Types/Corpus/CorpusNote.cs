@@ -1,4 +1,5 @@
-﻿using Realms;
+﻿using System.Xml.Serialization;
+using Realms;
 
 namespace Furukawa.Types;
 
@@ -20,4 +21,10 @@ public partial class CorpusNote : IRealmObject
     public string Content { get; set; } // Plaintext path to a file which has the contents of the note
     public string Template { get; set; } // Name of the template
     public IList<string> Dependencies { get; } // List of strings which are SortFields of other notes that must be in a Review state before seeing this note
+    
+    internal static CorpusNote ReadFromStream(Stream stream)
+    {
+        XmlSerializer serializer = new(typeof(CorpusNote));
+        return (CorpusNote)serializer.Deserialize(stream);
+    }
 }

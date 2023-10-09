@@ -23,7 +23,7 @@ public partial class FsrsCard : IRealmObject
     public string LastReview { get; set; } // (string)DateTime
 
     /// <summary>
-    /// 
+    /// Replace the values of this FsrsCard with new values, retaining the same Guid, Owner, and Note.
     /// </summary>
     /// <param name="card">The card to derive FSRS parameters from.</param>
     /// <returns>Returns a new instance of FsrsRealmCard with this FsrsRealmCard's Guid, Owner, Decks, and ContentFile using the FSRS card parameters of the given Card.</returns>
