@@ -11,6 +11,7 @@ using FSRSharp;
 using Furukawa.Requests;
 using Furukawa.Types;
 using Mustache;
+using Newtonsoft.Json;
 
 namespace Furukawa.Endpoints.Api;
 
@@ -31,8 +32,8 @@ public class SrsEndpoints : EndpointGroup
         return renderedCard;
     }
 
-    [ApiEndpoint("srs/GradeCard", HttpMethods.Post)]
-    public HttpStatusCode GradeCard(RequestContext context, FurukawaDatabaseContext database, FsrsAlgorithm fsrs, CardGradeRequest body)
+    [ApiEndpoint("srs/GradeCard", HttpMethods.Post, ContentType.Json)]
+    public HttpStatusCode GradeCard(RequestContext context, FurukawaDatabaseContext database, CardGradeRequest body, FsrsAlgorithm fsrs)
     {
         // Accept card UUID and grade, update card in database and publish review log
         FsrsCard grading = database.GetFsrsCardByGuid(Guid.Parse(body.Guid));

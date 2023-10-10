@@ -1,6 +1,4 @@
-﻿using Realms;
-
-namespace Furukawa.Requests;
+﻿namespace Furukawa.Requests;
 
 public class CardGradeRequest
 {
