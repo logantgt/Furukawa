@@ -4,6 +4,16 @@
     --bs-dropdown-border-color: #262626 !important;
 }
 
+#newcard-panel
+{
+    display: none;
+}
+
+#review-panel
+{
+    display: none;
+}
+
 #card-grade-btn-panel > #grade-btn-col > #grade-btns > #grade-btn-row > button
 {
     width: 100%;

@@ -8,6 +8,7 @@ using Furukawa.Database;
 using Furukawa.Models;
 using Furukawa.Services;
 using FSRSharp;
+using Furukawa.Requests;
 using Furukawa.Types;
 using Mustache;
 
@@ -31,14 +32,22 @@ public class SrsEndpoints : EndpointGroup
     }
 
     [ApiEndpoint("srs/GradeCard", HttpMethods.Post)]
-    public HttpStatusCode GradeCard(RequestContext context, FurukawaDatabaseContext database, FsrsAlgorithm fsrs, string body)
+    public HttpStatusCode GradeCard(RequestContext context, FurukawaDatabaseContext database, FsrsAlgorithm fsrs, CardGradeRequest body)
     {
         // Accept card UUID and grade, update card in database and publish review log
+        FsrsCard grading = database.GetFsrsCardByGuid(Guid.Parse(body.Guid));
+        SchedulingInfo info = fsrs.Repeat(grading.ToCard())[(CardRating)body.Grade];
+
+        grading = grading.UpdateCard(info.Card);
+        
+        database.WriteFsrsRealmCard(grading);
+        database.WriteFsrsRealmReviewLog(FsrsReviewLog.FromReviewLog(info.FsrsReviewLog, Guid.Parse(body.Guid)));
+        
         return HttpStatusCode.OK;
     }
         
-    [ApiEndpoint("srs/DueCardCount", HttpMethods.Post)]
-    public HttpStatusCode DueCardCount(RequestContext context, FurukawaDatabaseContext database, FsrsAlgorithm fsrs, string body)
+    [ApiEndpoint("srs/DueCardCount", HttpMethods.Get)]
+    public HttpStatusCode DueCardCount(RequestContext context, FurukawaDatabaseContext database, FsrsAlgorithm fsrs)
     {
         return HttpStatusCode.OK;
     }

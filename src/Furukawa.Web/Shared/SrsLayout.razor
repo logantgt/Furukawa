@@ -18,22 +18,15 @@
             </CascadingValue>
         </article>
         <footer>
-            <div id="reveal-panel">
-                <RevealButtonPanel CardState=@currentCard.State></RevealButtonPanel>
-            </div>
-            <div id="newcard-panel">
-                <NewCardButtonPanel CardGuid=@currentCard.Guid></NewCardButtonPanel>
-            </div>
-            <div id="grade-panel">
-                <GradeButtonPanel CardGuid=@currentCard.Guid></GradeButtonPanel>
-            </div>
+            <RevealButtonPanel CardState=@currentCard.State></RevealButtonPanel>
+            <GradeButtonPanel CardGuid=@currentCard.Guid></GradeButtonPanel>
         </footer>
     </main>
 </div>
 
 @code
 {
-    public MarkupString MarkupContent { get; set; }
+    private MarkupString MarkupContent { get; set; }
     private RenderedCard? currentCard;
 
     protected override async Task OnInitializedAsync()

@@ -1,7 +1,3 @@
-footer > #newcard-panel { display: none; }
-/*footer > #reveal-panel { display: none; }*/
-footer > #grade-panel { display: none; }
-
 .page {
     position: relative;
     display: flex;

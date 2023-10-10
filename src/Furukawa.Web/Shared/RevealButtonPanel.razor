@@ -1,20 +1,22 @@
-﻿<div class="d-flex justify-content-center" id="card-grade-btn-panel">
-    <div id="grade-btn-col" style="width: 100%;">
-        <div id="grade-btns">
-            <div id="grade-btn-row">
-                <button class="btn btn-outline-info" id="card-reveal-input" onclick="
-                    document.getElementById('card-front').style.display = 'none';
-                    document.getElementById('card-back').style.display = 'block';
-                    document.getElementById('reveal-panel').style.display = 'none';
-                    if (@CardState == 0)
-                    { 
-                        document.getElementById('newcard-panel').style.display = 'block';
-                    }
-                    else
-                    {
-                        document.getElementById('grade-panel').style.display = 'block';
-                    }
-                ">Reveal</button>
+﻿<div id="reveal-panel">
+    <div class="d-flex justify-content-center" id="card-grade-btn-panel">
+        <div id="grade-btn-col" style="width: 100%;">
+            <div id="grade-btns">
+                <div id="grade-btn-row">
+                    <button class="btn btn-outline-info" id="card-reveal-input" onclick="
+                        document.getElementById('card-front').style.display = 'none';
+                        document.getElementById('card-back').style.display = 'block';
+                        document.getElementById('reveal-panel').style.display = 'none';
+                        if (@CardState == 0)
+                        { 
+                            document.getElementById('newcard-panel').style.display = 'block';
+                        }
+                        else
+                        {
+                            document.getElementById('review-panel').style.display = 'block';
+                        }
+                    ">Reveal</button>
+                </div>
             </div>
         </div>
     </div>

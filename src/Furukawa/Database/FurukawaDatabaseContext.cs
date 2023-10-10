@@ -18,6 +18,11 @@ public partial class FurukawaDatabaseContext : RealmDatabaseContext
         return _realm.Find<CorpusNote>(note);
     }
 
+    public FsrsCard GetFsrsCardByGuid(Guid guid)
+    {
+        return _realm.Find<FsrsCard>(guid);
+    }
+
     public void WriteFsrsRealmReviewLog(FsrsReviewLog reviewLog)
     {
         _realm.Write(() =>

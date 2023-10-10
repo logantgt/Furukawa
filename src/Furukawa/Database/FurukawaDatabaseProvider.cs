@@ -15,7 +15,7 @@ public class FurukawaDatabaseProvider : RealmDatabaseProvider<FurukawaDatabaseCo
         //throw new NotImplementedException();
         // TODO: Make this not shit
         // Check to see if there are any new notes to merge
-
+        /*
         CorpusNote note = new();
         note.SortField = "愛";
         note.Content.Add(new KeyValuePair<string, string>("answer", "愛"));
@@ -31,7 +31,7 @@ public class FurukawaDatabaseProvider : RealmDatabaseProvider<FurukawaDatabaseCo
 
         this.GetContext().AddSomeCorpusNotesTest(note);
         this.GetContext().WriteFsrsRealmCard(dbCard);
-        
+        */
     }
 
     protected override void Migrate(Migration migration, ulong oldVersion)
