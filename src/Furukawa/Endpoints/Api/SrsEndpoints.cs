@@ -15,14 +15,15 @@ namespace Furukawa.Endpoints.Api;
 
 public class SrsEndpoints : EndpointGroup
 {
-    [ApiEndpoint("srs/NextDueCard", HttpMethods.Get)]
+    [ApiEndpoint("srs/NextDueCard", HttpMethods.Get, ContentType.Json)]
     public RenderedCard NextDueCard(RequestContext context, FurukawaDatabaseContext database)
     {
         // Send the UUID of the user's next card to the client along with the Card Contents for presentation
         FsrsCard newCard = database.QueryNextCard();
         RenderedCard renderedCard = new RenderedCard()
         {
-            Guid = Guid.NewGuid().ToString(),
+            Guid = newCard.Guid.ToString(),
+            State = newCard.State,
             Content = RenderCard(database.QueryNote(newCard.Note), database)
         };
 
@@ -44,6 +45,6 @@ public class SrsEndpoints : EndpointGroup
 
     private string RenderCard(CorpusNote note, FurukawaDatabaseContext database)
     {
-        return Template.Compile(database.ReadCorpusTemplate(note.Template)).Render(note.Content);
+        return Template.Compile(database.ReadCorpusTemplate(note.Template)).Render(note.Content.ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
     }
 }

@@ -1,4 +1,7 @@
-﻿<div class="d-flex justify-content-center" id="card-grade-btn-panel">
+﻿@inject HttpClient Http
+@inject NavigationManager _navigationManager
+
+<div class="d-flex justify-content-center" id="card-grade-btn-panel">
     <div id="grade-btn-col" style="width: 100%;">
         <div id="grade-btns">
             <div id="grade-btn-row">
@@ -26,8 +29,20 @@
 {
     [Parameter] public string CardGuid { get; set; }
     
-    protected void OnGradeBtnClick(int grade)
+    protected async Task OnGradeBtnClick(int grade)
     {
-        
+        await Http.PostAsJsonAsync("/api/v1/srs/GradeCard", new CardGrade{ Guid = CardGuid, Grade = grade });
+        ReloadPage(this._navigationManager);
+    }
+    
+    public static void ReloadPage(NavigationManager manager)
+    {
+        manager.NavigateTo(manager.Uri, true);
+    }
+
+    public class CardGrade
+    {
+        public string Guid { get; set; }
+        public int Grade { get; set; }
     }
 }

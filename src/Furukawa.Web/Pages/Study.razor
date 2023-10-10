@@ -1,21 +1,31 @@
 ﻿@page "/study"
 @layout SrsLayout
+@inject HttpClient Http
 
 <PageTitle>Study</PageTitle>
-<style>  
+<style>
     #srs-card { height: 100%; overflow: hidden; }
     #srs-card > #card-front { display: block; height: 100%; }
     #srs-card > #card-back { display: none; height: 100%; }
+    
+    iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+        /*border:  1px solid #262626;*/
+    }
 </style>
 
 <div id="srs-card">
-
+    @MarkupContent
 </div>
 
 @code
 {
-    protected override async Task OnInitializedAsync()
-    {
-        
-    }
+    [CascadingParameter]
+    protected MarkupString? MarkupContent { get; set; }
 }
+

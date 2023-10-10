@@ -15,7 +15,7 @@ public partial class FurukawaDatabaseContext : RealmDatabaseContext
 
     public CorpusNote QueryNote(string note)
     {
-        return _realm.Find<CorpusNote>(note + "\r");
+        return _realm.Find<CorpusNote>(note);
     }
 
     public void WriteFsrsRealmReviewLog(FsrsReviewLog reviewLog)

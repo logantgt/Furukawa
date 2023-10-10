@@ -7,5 +7,6 @@ namespace Furukawa.Models;
 public struct RenderedCard
 {
     public string Guid;
+    public int State;
     public string Content;
 }

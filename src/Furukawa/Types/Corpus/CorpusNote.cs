@@ -5,6 +5,8 @@ namespace Furukawa.Types;
 
 public partial class CorpusNote : IRealmObject
 {
+    public CorpusNote() { }
+
     public CorpusNote(string sortField, Dictionary<string, string> content, string template, string[] dependencies)
     {
         SortField = sortField;
