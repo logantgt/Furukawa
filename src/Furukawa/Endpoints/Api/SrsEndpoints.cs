@@ -21,7 +21,7 @@ public class SrsEndpoints : EndpointGroup
     public RenderedCard NextDueCard(RequestContext context, FurukawaDatabaseContext database)
     {
         // Send the UUID of the user's next card to the client along with the Card Contents for presentation
-        RealmCard newCard = database.QueryNextCard();
+        SerializableCard newCard = database.QueryNextCard();
         RenderedCard renderedCard = new RenderedCard()
         {
             Guid = newCard.Guid.ToString(),
@@ -36,13 +36,13 @@ public class SrsEndpoints : EndpointGroup
     public HttpStatusCode GradeCard(RequestContext context, FurukawaDatabaseContext database, CardGradeRequest body, Algorithm fsrs)
     {
         // Accept card UUID and grade, update card in database and publish review log
-        RealmCard grading = database.GetFsrsCardByGuid(Guid.Parse(body.Guid));
+        SerializableCard grading = database.GetFsrsCardByGuid(Guid.Parse(body.Guid));
         SchedulingInfo info = fsrs.Repeat(grading.ToCard())[(CardRating)body.Grade];
 
         grading = grading.UpdateCard(info.Card);
         
         database.WriteFsrsRealmCard(grading);
-        database.WriteFsrsRealmReviewLog(RealmReviewLog.FromReviewLog(info.FsrsReviewLog, Guid.Parse(body.Guid)));
+        database.WriteFsrsRealmReviewLog(SerializableReviewLog.FromReviewLog(info.FsrsReviewLog, Guid.Parse(body.Guid)));
         
         return HttpStatusCode.OK;
     }

@@ -4,7 +4,7 @@ using Realms;
 
 namespace Furukawa.Types;
 
-public partial class RealmReviewLog : IRealmObject
+public partial class SerializableReviewLog : IRealmObject
 {
     public Guid Guid { get; set; }
     public int Rating { get; set; } // (int)FsrsCardRating
@@ -13,9 +13,9 @@ public partial class RealmReviewLog : IRealmObject
     public string Review { get; set; } // (string)DateTime
     public int State { get; set; } // (int)FsrsCardState
         
-    public static RealmReviewLog FromReviewLog(ReviewLog review, Guid guid)
+    public static SerializableReviewLog FromReviewLog(ReviewLog review, Guid guid)
     {
-        return new RealmReviewLog()
+        return new SerializableReviewLog()
         {
             Guid = guid,
             Rating = (int)review.Rating,

@@ -83,8 +83,8 @@ public class FurukawaDatabaseProvider : RealmDatabaseProvider<FurukawaDatabaseCo
         typeof(SiteUser),
         typeof(SiteSession),
         typeof(UserStatistics),
-        typeof(RealmCard),
-        typeof(RealmReviewLog),
+        typeof(SerializableCard),
+        typeof(SerializableReviewLog),
         typeof(CorpusNote),
         typeof(CorpusTemplate)
     };
