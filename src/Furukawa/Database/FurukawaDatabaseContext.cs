@@ -6,10 +6,10 @@ namespace Furukawa.Database;
 
 public partial class FurukawaDatabaseContext : RealmDatabaseContext
 {
-    public FsrsCard QueryNextCard()
+    public RealmCard QueryNextCard()
     {
         // TODO: properly query database for set of next due cards and return next due card (first card to become due by timestamp)
-        IQueryable<FsrsCard> dueCardList = _realm.All<FsrsCard>();
+        IQueryable<RealmCard> dueCardList = _realm.All<RealmCard>();
         return dueCardList.First();
     }
 
@@ -18,12 +18,12 @@ public partial class FurukawaDatabaseContext : RealmDatabaseContext
         return _realm.Find<CorpusNote>(note);
     }
 
-    public FsrsCard GetFsrsCardByGuid(Guid guid)
+    public RealmCard GetFsrsCardByGuid(Guid guid)
     {
-        return _realm.Find<FsrsCard>(guid);
+        return _realm.Find<RealmCard>(guid);
     }
 
-    public void WriteFsrsRealmReviewLog(FsrsReviewLog reviewLog)
+    public void WriteFsrsRealmReviewLog(RealmReviewLog reviewLog)
     {
         _realm.Write(() =>
         {
@@ -31,7 +31,7 @@ public partial class FurukawaDatabaseContext : RealmDatabaseContext
         });
     }
         
-    public void WriteFsrsRealmCard(FsrsCard card)
+    public void WriteFsrsRealmCard(RealmCard card)
     {
         _realm.Write(() =>
         {
@@ -46,18 +46,18 @@ public partial class FurukawaDatabaseContext : RealmDatabaseContext
             _realm.Add(note, true);
         });
     }
-        
-    public void AddSomeCorpusListsTest(CorpusStat list)
-    {
-        _realm.Write(() =>
-        {
-            _realm.Add(list, true);
-        });
-    }
 
     public string ReadCorpusTemplate(string key)
     {
         return _realm.Find<CorpusTemplate>(key).Content;
+    }
+
+    public void WriteCorpusTemplate(CorpusTemplate template)
+    {
+        _realm.Write(() =>
+        {
+            _realm.Add(template, true);
+        });
     }
 
     private static string GenerateGuid()

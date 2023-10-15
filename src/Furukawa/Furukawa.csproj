@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Anki.NET" Version="2.0.0" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Bunkum" Version="4.0.1" />
     <PackageReference Include="Bunkum.RealmDatabase" Version="4.0.1" />

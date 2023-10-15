@@ -14,14 +14,14 @@ namespace Furukawa.Services;
 /// </summary>
 public class FsrsService : Service
 {
-    private FsrsAlgorithm _fsrs = new FsrsAlgorithm();
+    private Algorithm _fsrs = new Algorithm();
     
     internal FsrsService(Logger logger) : base(logger) { }
     
     public override object? AddParameterToEndpoint(ListenerContext context, ParameterInfo paramInfo, Lazy<IDatabaseContext> database)
     {
         this.Logger.LogDebug(BunkumCategory.Service, $"FsrsService is attempting to pass something in for `{paramInfo.ParameterType.Name} {paramInfo.Name}`");
-        if (paramInfo.ParameterType == typeof(FsrsAlgorithm))
+        if (paramInfo.ParameterType == typeof(Algorithm))
         {
             this.Logger.LogDebug(BunkumCategory.Service, "Matched! Passing the time in.");
             return _fsrs;

@@ -22,7 +22,10 @@ public partial class CorpusNote : IRealmObject
     }
 
     [PrimaryKey]
+    public Guid Guid { get; set; }
     public string SortField { get; set; } // The "answer" of the card, just as in Anki
+    public int Order { get; set; } // The sorting order of the card, sequential within a deck
+    public string Deck { get; set; } // The name of the deck which includes the note
     public IDictionary<string, string> Content { get; } // Dictionary which holds the values of the card
     public string Template { get; set; } // Name of the template
     public IList<string> Dependencies { get; } // List of strings which are SortFields of other notes that must be in a Review state before seeing this note
